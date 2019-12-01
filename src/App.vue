@@ -1,7 +1,5 @@
 <template>
   <v-app>
-
-
     <v-content>
       <!-- <HelloWorld/> -->
       <router-view/>
