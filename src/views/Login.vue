@@ -16,7 +16,7 @@
           >
             <v-card class="elevation-12">
               <v-toolbar
-                color="success"
+                color="primary"
                 dark
                 flat
               >
@@ -59,6 +59,7 @@
                     prepend-icon="mdi-account"
                     type="text"
                     v-model="username"
+                    autofocus
                     required
                     v-bind:class="{mierror: usererr}" class="myinput mi"
                   />
@@ -77,7 +78,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn color="success btn-xl" type="submit">Login</v-btn>
+                <v-btn color="primary" type="submit" href="dashboard">Login</v-btn>
               </v-card-actions>
               <div v-show="hasError" class="error">
             <span v-if="usererr" class="er">Incorrect username!</span>

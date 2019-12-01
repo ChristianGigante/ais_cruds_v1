@@ -1,4 +1,6 @@
 <template>
+<div>
+  <Nav />
   <v-data-table
     :headers="headers"
     :items="desserts"
@@ -84,9 +86,17 @@
       <v-btn color="primary" @click="initialize">Reset</v-btn>
     </template>
   </v-data-table>
+</div>
 </template>
 <script>
+import Nav from '../components/Nav.vue';
   export default {
+      name: 'Dashboard',
+
+  components: {
+    Nav,
+  },
+
     data(){
       return {
       search:"",
