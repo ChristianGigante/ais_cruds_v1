@@ -89,6 +89,7 @@
 </div>
 </template>
 <script>
+import axios from "axios";
 import Nav from '../components/Nav.vue';
   export default {
       name: 'Dashboard',
@@ -146,11 +147,20 @@ import Nav from '../components/Nav.vue';
     },
 
     created () {
-      this.initialize()
+      this.populate()
     },
 
     methods: {
+          populate() {
+      axios
+        .get("http://localhost:3000/ais/retrieveItems")
+        .then(response => {
+          var datax = response.data.data;
+          this.desserts = datax;
+        })
+    },
       initialize () {
+        
         this.desserts = [
           {
             name: 'Frozen Yogurt',
