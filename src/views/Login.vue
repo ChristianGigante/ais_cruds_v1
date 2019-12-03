@@ -1,5 +1,9 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire"
+    :style="`background :linear-gradient(rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)),
+    url(${background})`"
+  >
     <v-content>
       <v-container
         class="fill-height"
@@ -101,17 +105,27 @@
 // </script>
 
 // <script lang="ts">
+import axios from "axios"
 export default {
   name: "Login",
   data() {
     return {
+        background: require("../assets/bg.jpg"),
         username: "",
         password: "",
         passerr: false,
         usererr: false,
         hasError: false,
     };
-  }, methods: {
+  },
+  mounted() {
+        axios
+      .get("https://source.unsplash.com/user/pankajpatel")
+      .then(res => {
+        this.background = res.request.responseURL;
+      })
+  },
+   methods: {
       validate() {
           
           this.usererr = this.username != "chan";
@@ -124,11 +138,12 @@ export default {
           if (!this.passerr && !this.usererr) {
               this.$router.push("/dashboard");
           }
-      }
+      },
+      
   }
 };
 </script>
-<style>
+<style scoped>
 
 /* .lcont { */
   /* height: 100vh; */
