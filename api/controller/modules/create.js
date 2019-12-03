@@ -6,7 +6,6 @@ let createItem = (req, res) => {
     if (!req.body) {
         response.message = "Item filleds can not be empty"
     }
-
     let name = req.body.name;
     let quantity = req.body.quantity;
     let priority = req.body.priority;
@@ -19,18 +18,12 @@ let createItem = (req, res) => {
 
     Item.save()
         .then(data => {
-            response.error = false
-            response.success = true
-            response.data = data;
-            response.message = "Created Successfully!"
+            return res.send(data);
         })
         .catch(err => {
-            response.error = err
-            response.message = "Service Unavailable!"
+            return res.send(err);
         })
-
-    res.send(response);
-
+        
 }
 
 module.exports = { createItem }

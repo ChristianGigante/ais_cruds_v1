@@ -8,14 +8,15 @@ let deleteOneItem = (req, res) => {
             response.error = false
             response.data = data
             response.message = "Successfully Deleted!"
+            return res.send(response);           
         })
         .catch(err => {
             response.status = 503
             response.error = true
             response.data = err
             response.message = "Service Unavailable!"
+            return res.send(response);           
         })
-    res.send(response);
 }
 
 module.exports = { deleteOneItem }

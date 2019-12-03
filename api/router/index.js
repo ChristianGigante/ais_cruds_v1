@@ -20,6 +20,8 @@ routes.route('/updateItem/:id').post((req, res) => {
 })
 
 routes.route('/deleteItem/:id').delete((req, res) => {
+    console.log(req.params);
+    
     mainController.deleteOneItem(req, res);
 })
 
