@@ -10,6 +10,7 @@
       sort-by="calories"
       class="elevation-1 container"
       :search="search"
+      id="table"
     >
       <template v-slot:top>
         <v-toolbar flat color="white">
@@ -231,7 +232,7 @@ export default {
                 this.editedItem
               )
               .then(res => {
-                alert(JSON.stringify(res.data));
+                alert(res.data.message);
               });
             Object.assign(this.desserts[this.editedIndex], this.editedItem); //updateItem
           } else {
@@ -252,4 +253,9 @@ export default {
 };
 </script>
 <style  scoped>
+#table {
+  margin-top: 5%;
+  margin-left: 12%;
+  margin-right: 10%;
+}
 </style>
