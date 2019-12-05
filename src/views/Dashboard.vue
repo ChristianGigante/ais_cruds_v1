@@ -81,7 +81,7 @@
         <v-icon small @click="deleteItem(item.id)">mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
+        <v-btn color="primary" @click="populate">Reset</v-btn>
       </template>
     </v-data-table>
   </div>
@@ -161,7 +161,7 @@ export default {
         var counter = 0;
         for (counter; counter < datax.length; counter++) {
           this.desserts.push({
-            id: datax[counter]._id,
+            id: datax[counter].d_i,
             name: datax[counter].name,
             quantity: datax[counter].quantity,
             priority: datax[counter].priority,
@@ -199,6 +199,11 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        // axios
+        //   .post("http://localhost:3000/ais/updateItem/"+this.dessets[this.editedIndex].this.id, this.editedItem)
+        //   .then(() => {
+        // Object.assign(this.desserts[this.editedIndex], this.editedItem); //updateItem
+        //   });
       } else {
         // this.desserts.push(this.editedItem) //add new Item
         axios

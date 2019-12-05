@@ -24,8 +24,13 @@ const path = require('path');
 require('./system/db_config')
 
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: true, limit: "20mb" }));
-app.use(bodyParser.json({ limit: "20mb" }));
+app.use(bodyParser.urlencoded({
+    extended: true,
+    limit: "20mb"
+}));
+app.use(bodyParser.json({
+    limit: "20mb"
+}));
 
 app.all('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'view/index.html'));
