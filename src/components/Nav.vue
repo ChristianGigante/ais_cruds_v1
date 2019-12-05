@@ -27,7 +27,7 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        href="login"
+        href="/"
         text
       >
         <span class="mr-2">Logout</span>
