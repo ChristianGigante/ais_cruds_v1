@@ -1,8 +1,6 @@
 <template>
   <v-app id="inspire"
-    :style="`background :linear-gradient(rgba(0, 0, 0, 0.5),
-    rgba(0, 0, 0, 0.5)),
-    url(${background})`"
+    :style="`background :linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(${background})`"
   >
     <v-content>
       <v-container
@@ -118,7 +116,7 @@ export default {
         hasError: false,
     };
   },
-  mounted() {
+  created() {
         axios
       .get("https://source.unsplash.com/user/pankajpatel")
       .then(res => {

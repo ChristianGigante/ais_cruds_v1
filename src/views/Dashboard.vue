@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <v-app
+    id="inspire"
+    :style="`background :linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(${background})`"
+  >
     <Nav />
     <v-data-table
       :headers="headers"
@@ -84,7 +87,7 @@
         <v-btn color="primary" @click="populate">Reset</v-btn>
       </template>
     </v-data-table>
-  </div>
+  </v-app>
 </template>
 <script>
 import axios from "axios";
@@ -98,6 +101,7 @@ export default {
 
   data() {
     return {
+      background: require("../assets/bg.jpg"),
       search: "",
       dialog: false,
       headers: [
@@ -116,6 +120,7 @@ export default {
       desserts: [],
       editedIndex: -1,
       editedItem: {
+        id: "",
         name: "",
         quantity: 0,
         priority: 0
@@ -137,7 +142,11 @@ export default {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
     }
   },
-
+  created() {
+    axios.get("https://source.unsplash.com/user/pankajpatel").then(res => {
+      this.background = res.request.responseURL;
+    });
+  },
   watch: {
     dialog(val) {
       val || this.close();
@@ -148,7 +157,7 @@ export default {
   //   this.populate();
   // },
 
- mounted() {
+  mounted() {
     this.populate();
   },
 
@@ -161,15 +170,21 @@ export default {
         var counter = 0;
         for (counter; counter < datax.length; counter++) {
           this.desserts.push({
-            id: datax[counter].d_i,
+            id: datax[counter]._id,
             name: datax[counter].name,
             quantity: datax[counter].quantity,
-            priority: datax[counter].priority,
+            priority: datax[counter].priority
           });
         }
       });
     },
     editItem(item) {
+      // alert(JSON.stringify(item))
+      // axios
+      //   .post("http://localhost:3000/ais/update/"+,item)
+      //   .then((res) => {
+      //       alert(JSON.stringify(res)) //updateItem
+      //   });
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
@@ -181,10 +196,10 @@ export default {
       if (ans) {
         axios
           .delete("http://localhost:3000/ais/deleteItem/" + item)
-          .then( () => {
-            alert("Successfully Deleted!")
+          .then(() => {
+            alert("Successfully Deleted!");
           });
-        this.desserts.splice(index, 1)
+        this.desserts.splice(index, 1);
       }
     },
 
@@ -197,23 +212,44 @@ export default {
     },
 
     save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-        // axios
-        //   .post("http://localhost:3000/ais/updateItem/"+this.dessets[this.editedIndex].this.id, this.editedItem)
-        //   .then(() => {
-        // Object.assign(this.desserts[this.editedIndex], this.editedItem); //updateItem
-        //   });
+      if (this.editedItem.name == "") {
+        alert("Name must be filled with Letters!");
+      } else if (this.editedItem.quantity < 1) {
+        alert("Quantity Must not be 0 or negative!");
+      } else if (this.editedItem.priority < 1 && this.editedItem.priority > 4) {
+        alert("Priority must be 1-3!");
       } else {
-        // this.desserts.push(this.editedItem) //add new Item
-        axios
-          .post("http://localhost:3000/ais/createItem", this.editedItem)
-          .then(() => {
-            this.desserts.push(this.editedItem); //add new Item
-          });
+        if (this.editedIndex > -1) {
+          if (
+            this.editedItem.name != "" &&
+            this.editedItem.quantity != "" &&
+            this.editedItem.priority != ""
+          ) {
+            axios
+              .post(
+                "http://localhost:3000/ais/updateItem/" + this.editedItem.id,
+                this.editedItem
+              )
+              .then(res => {
+                alert(JSON.stringify(res.data));
+              });
+            Object.assign(this.desserts[this.editedIndex], this.editedItem); //updateItem
+          } else {
+            this.close();
+          }
+        } else {
+          // this.desserts.push(this.editedItem) //add new Item
+          axios
+            .post("http://localhost:3000/ais/createItem", this.editedItem)
+            .then(() => {
+              this.desserts.push(this.editedItem); //add new Item
+            });
+        }
       }
       this.close();
     }
   }
 };
 </script>
+<style  scoped>
+</style>
