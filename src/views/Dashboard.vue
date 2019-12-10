@@ -229,7 +229,9 @@ export default {
                 this.editedItem
               )
               .then(res => {
-                alert(res.data.message);
+                swal({title: res.data.message,
+            icon:"success"})
+                // alert(res.data.message);
               });
             Object.assign(this.desserts[this.editedIndex], this.editedItem); //updateItem
           } else {
