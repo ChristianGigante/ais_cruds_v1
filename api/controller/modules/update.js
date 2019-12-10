@@ -28,12 +28,12 @@ let updateOne = (req, res) => {
 
             }
         })
-        .catch(err => {
-            response.error = err
-            response.status = 503
-            response.message = "Service Unavailable"
-            return res.status(200).send(response);
-        })
+        // .catch(err => {
+        //     response.error = err
+        //     response.status = 503
+        //     response.message = "Service Unavailable"
+        //     return res.status(200).send(response);
+        // })
     // res.send(response);
 }
 module.exports = { updateOne }

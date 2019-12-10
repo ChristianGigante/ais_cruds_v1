@@ -93,6 +93,7 @@
 <script>
 import axios from "axios";
 import Nav from "../components/Nav.vue";
+import swal from "sweetalert"
 export default {
   name: "Dashboard",
 
@@ -192,7 +193,9 @@ export default {
         axios
           .delete("http://localhost:3000/ais/deleteItem/" + item)
           .then(() => {
-            alert("Successfully Deleted!");
+            swal({title: "Successfully Deleted!",
+            icon:"success"})
+            // alert("Successfully Deleted!");
           });
         this.desserts.splice(index, 1);
       }
@@ -237,6 +240,8 @@ export default {
           axios
             .post("http://localhost:3000/ais/createItem", this.editedItem)
             .then(() => {
+               swal({title: "Successfully Added!",
+            icon:"success"})
               this.desserts.push(this.editedItem); //add new Item
             });
         }
@@ -254,7 +259,7 @@ export default {
   /* margin-left: 12%;
   margin-right: 300px; */
 }
-#inspire{
+#inspire {
   width: 100%;
   height: 100%;
 }
