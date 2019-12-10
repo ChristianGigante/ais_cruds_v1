@@ -108,7 +108,7 @@ export default {
       headers: [
         {
           text: "Item Name",
-          align: "left",
+          align: "center",
           sortable: true,
           value: "name"
         },
@@ -180,12 +180,6 @@ export default {
       });
     },
     editItem(item) {
-      // alert(JSON.stringify(item))
-      // axios
-      //   .post("http://localhost:3000/ais/update/"+,item)
-      //   .then((res) => {
-      //       alert(JSON.stringify(res)) //updateItem
-      //   });
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
@@ -254,8 +248,14 @@ export default {
 </script>
 <style  scoped>
 #table {
+  /* position: absolute; */
   margin-top: 5%;
-  margin-left: 12%;
-  margin-right: 10%;
+  margin-bottom: 5%;
+  /* margin-left: 12%;
+  margin-right: 300px; */
+}
+#inspire{
+  width: 100%;
+  height: 100%;
 }
 </style>
