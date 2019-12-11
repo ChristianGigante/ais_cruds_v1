@@ -118,7 +118,7 @@ export default {
   },
   created() {
         axios
-      .get("https://source.unsplash.com/user/pankajpatel")
+      .get("https://source.unsplash.com/user/mercantile")
       .then(res => {
         this.background = res.request.responseURL;
       })
@@ -142,46 +142,14 @@ export default {
 };
 </script>
 <style scoped>
-
-/* .lcont { */
-  /* height: 100vh; */
-  /* text-align: center; */
-  /* background-image: url("../assets/back.jpg"); */
-/* background-size: cover; */
-  /* background-image: linear-gradient(to bottom right, white, rgb(199, 222, 247)); */
-/* } */
-/* .fb {
-  background:white;
-  margin:0;
-  padding:1px;
-} */
-/* .loginholder { */
-  /* border-radius: 1px; */
-  /* display: inline-block; */
-  /* border: 2px solid #6ec2f3; */
-  /* margin-top: 120px; */
-  /* background: white; */
-/* } */
-/* .mi {
-  margin: 27px;
-  width: 230px;
-} */
-.error {
-  color: rgb(243, 0, 0);
-  background: rgb(250, 219, 219);
+#inspire {
+  height: 100% !important;
+  width: 100% !important;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("https://source.unsplash.com/user/mercantile");
+  background-size: cover !important  ;
+  background-position: top center !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
 }
-/* .bi {
-  margin-top: 0px !important;
-  margin-bottom: 27px !important;
-  display: inline-block;
-}
-.lh {
-  background:rgba(198, 226, 248, 0.7);
-  padding: 15px;
-  margin:0;
-}
-.er {
-    display:block;
-    /* margin: 5px; */
-/* } */ 
 </style>

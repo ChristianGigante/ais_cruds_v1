@@ -145,7 +145,7 @@ export default {
     }
   },
   created() {
-    axios.get("https://source.unsplash.com/user/pankajpatel").then(res => {
+    axios.get("https://source.unsplash.com/user/esteejanssens").then(res => {
       this.background = res.request.responseURL;
     });
   },
@@ -285,7 +285,7 @@ export default {
   height: 100% !important;
   width: 100% !important;
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url("https://source.unsplash.com/user/andyjh07");
+    url("https://source.unsplash.com/user/esteejanssens");
   background-size: cover !important  ;
   background-position: top center !important;
   background-attachment: fixed !important;
