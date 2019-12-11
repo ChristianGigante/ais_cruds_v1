@@ -20,9 +20,7 @@ var itemSchema = new Schema({
     max: 3,
     required: true
   }
-}, {
-    collection: "items"
-  });
+});
 
 // Compile model from schema
 var Item = mongoose.model('items', itemSchema);

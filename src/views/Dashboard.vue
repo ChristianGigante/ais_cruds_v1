@@ -3,7 +3,7 @@
     id="inspire"
     :style="`background :linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(${background})`"
   >
-    <Nav/>
+    <Nav />
     <v-data-table
       :headers="headers"
       :items="desserts"
@@ -220,11 +220,26 @@ export default {
 
     save() {
       if (this.editedItem.name == "") {
-        alert("Name must be filled with Letters!");
+        // alert("Name must be filled with Letters!");
+        swal({
+          title: "Failed to Update!",
+          text: "Name must be filled with Letters!",
+          icon: "warning"
+        });
       } else if (this.editedItem.quantity < 1) {
-        alert("Quantity Must not be 0 or negative!");
-      } else if (this.editedItem.priority < 1 && this.editedItem.priority > 4) {
-        alert("Priority must be 1-3!");
+        // alert("Quantity Must not be 0 or negative!");
+        swal({
+          title: "Failed to Update!",
+          text: "Quantity Must not be 0 or negative!",
+          icon: "warning"
+        });
+      } else if (this.editedItem.priority < 1 || this.editedItem.priority > 4) {
+        // alert("Priority must be 1-3!");
+        swal({
+          title: "Failed to Update!",
+          text: "Priority must be 1-3!",
+          icon: "warning"
+        });
       } else {
         if (this.editedIndex > -1) {
           if (
@@ -250,7 +265,11 @@ export default {
               });
             Object.assign(this.desserts[this.editedIndex], this.editedItem); //updateItem
           } else {
-            swal({ title: "Failed to Update!", icon: "warning" });
+            swal({
+              title: "Failed to Update!",
+              text: "Fields must NOT be Empty!",
+              icon: "warning"
+            });
             // this.close();
           }
         } else {

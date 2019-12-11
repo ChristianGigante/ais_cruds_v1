@@ -4,8 +4,11 @@ let createItem = (req, res) => {
 
     // Validate request
     if (!req.body) {
+        response.error = true
         response.message = "Item filleds can not be empty"
+        return res.status(200).send(response);
     }
+    
     let name = req.body.name;
     let quantity = req.body.quantity;
     let priority = req.body.priority;
