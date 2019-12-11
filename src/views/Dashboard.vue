@@ -93,7 +93,7 @@
 <script>
 import axios from "axios";
 import Nav from "../components/Nav.vue";
-import swal from "sweetalert"
+import swal from "sweetalert";
 export default {
   name: "Dashboard",
 
@@ -188,17 +188,28 @@ export default {
 
     deleteItem(item) {
       const index = this.desserts.indexOf(item);
-      let ans = confirm("Are you sure you want to delete this item?");
-      if (ans) {
-        axios
-          .delete("http://localhost:3000/ais/deleteItem/" + item)
-          .then(() => {
-            swal({title: "Successfully Deleted!",
-            icon:"success"})
-            // alert("Successfully Deleted!");
-          });
-        this.desserts.splice(index, 1);
-      }
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(willDelete => {
+        if (willDelete) {
+          axios
+            .delete("http://localhost:3000/ais/deleteItem/" + item)
+            .then(() => {
+              swal("Poof! Your data has been deleted!", {
+                icon: "success"
+              });
+            });
+          this.desserts.pop(index);
+        } else {
+          swal("Your data is safe!");
+        }
+      });
+      this.desserts = [];
+      this.populate();
     },
 
     close() {
@@ -229,22 +240,31 @@ export default {
                 this.editedItem
               )
               .then(res => {
-                swal({title: res.data.message,
-            icon:"success"})
+                swal({ title: res.data.message, icon: "success" });
                 // alert(res.data.message);
+              })
+              .catch(err => {
+                swal({
+                  title: "Failed to Update!",
+                  text: err,
+                  icon: "warning"
+                });
               });
             Object.assign(this.desserts[this.editedIndex], this.editedItem); //updateItem
           } else {
-            this.close();
+            swal({ title: "Failed to Update!", icon: "warning" });
+            // this.close();
           }
         } else {
           // this.desserts.push(this.editedItem) //add new Item
           axios
             .post("http://localhost:3000/ais/createItem", this.editedItem)
             .then(() => {
-               swal({title: "Successfully Added!",
-            icon:"success"})
+              swal({ title: "Successfully Added!", icon: "success" });
               this.desserts.push(this.editedItem); //add new Item
+            })
+            .catch(err => {
+              swal({ title: "Failed to Update!", text: err, icon: "warning" });
             });
         }
       }
@@ -262,7 +282,13 @@ export default {
   margin-right: 300px; */
 }
 #inspire {
-  width: 100%;
-  height: 100%;
+  height: 100% !important;
+  width: 100% !important;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("https://source.unsplash.com/user/andyjh07");
+  background-size: cover !important  ;
+  background-position: top center !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
 }
 </style>
