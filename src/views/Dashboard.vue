@@ -3,7 +3,7 @@
     id="inspire"
     :style="`background :linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(${background})`"
   >
-    <Nav />
+    <Nav/>
     <v-data-table
       :headers="headers"
       :items="desserts"
@@ -82,7 +82,7 @@
       </template>
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-        <v-icon small @click="deleteItem(item.id)">mdi-delete</v-icon>
+        <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="populate">Reset</v-btn>
@@ -189,7 +189,7 @@ export default {
     deleteItem(item) {
       const index = this.desserts.indexOf(item);
       swal({
-        title: "Are you sure?",
+        title: "Are you sure to remove " + item.name + "?",
         text: "Once deleted, you will not be able to recover this data!",
         icon: "warning",
         buttons: true,
@@ -197,19 +197,17 @@ export default {
       }).then(willDelete => {
         if (willDelete) {
           axios
-            .delete("http://localhost:3000/ais/deleteItem/" + item)
+            .delete("http://localhost:3000/ais/deleteItem/" + item.id)
             .then(() => {
               swal("Poof! Your data has been deleted!", {
                 icon: "success"
               });
             });
-          this.desserts.pop(index);
+          this.desserts.splice(index, 1);
         } else {
           swal("Your data is safe!");
         }
       });
-      this.desserts = [];
-      this.populate();
     },
 
     close() {
